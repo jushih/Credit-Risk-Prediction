@@ -1,15 +1,16 @@
 # Modeling Credit Risk with Decision Trees
 The purpose of this project is to build a Decision Tree model that can predict credit worthiness. The model will be trained on the German Credit dataset available via the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/statlog+(german+credit+data)). The dataset contains 1,000 records and 62 features. One of the features describes the applicant's credit risk as either "Good" or "Bad". The other features are attributes related to the account or applicant, such as credit history, loan purpose, and employment duration. Because there is a surplus of attributes, feature selection will be performed to find the most optimal set of predictors.
 
-Decision Trees are algorithms that split features into branching paths to arrive at a prediction. Decision Trees are suited to datasets with many features and may perform better than Linear or Logistic Regression models. 
+Decision Trees are algorithms that split features into branching paths to arrive at a prediction. Decision Trees are suited to datasets with many features and can outperform Linear or Logistic Regression models. 
 
-The results of this analysis will be presented.
-* Building a Decision Tree Model with Hyperparameter Tuning
+In this analysis, I start by implementing a simple decision tree model to serve as a baseline before trying advanced ensemble tree models. At the end, I will compare the accuracies of all my models and pick the top performing model.
+
+* Decision Tree Model with Hyperparameter Tuning
 * Visualization of the Decision Tree Model
-* Feature Importance with Random Forest
+* Random Forest - Bagging and Feature Importance
 * Advanced Decision Trees: Comparing Boosting-Based Algorithms
 
-The code used to generate the models can be found in the repo's [Jupyter Notebook](https://github.com/jushih/Credit-Risk-Prediction/blob/master/Predicting_Credit_Risk_with_Decision_Trees.ipynb).
+The code used to generate the models can be found in the repository's [Jupyter Notebook](https://github.com/jushih/Credit-Risk-Prediction/blob/master/Predicting_Credit_Risk_with_Decision_Trees.ipynb).
 
 ## Decision Tree Model
 
@@ -38,7 +39,7 @@ Next, I'll try to improve classification accuracy by building a Random Forest en
 
 The advantage of a Random Forest model over a simple Decision Tree is that Decision Trees are prone to overfitting. Decision Trees, especially ones that are deep, will form detailed feature branches that fit the training data but don't generalize well. In the case of a Random Forest model, each tree uses a subsample of the features to make their prediction so overfitting is less likely to occur. This sampling technique is known as bootstrap aggregation, or **bagging**. It leads to better model accuracy and also allows Random Forests another advantage - the ability to determine **feature importance**.
 
-I also perform hyperparameter tuning on the Random Forest to build the best model. The Grid Search found the following best parameters.
+I perform hyperparameter tuning on the Random Forest to build the best model. Grid Search found the following best parameters.
 
 ```
 {'bootstrap': True,
@@ -53,14 +54,14 @@ I also perform hyperparameter tuning on the Random Forest to build the best mode
 
 * Accuracy on test data: 0.760
 
-By using an ensemble method, the accuracy has improved 4% compared to the simple Decision Tree model.
+By using an ensemble method, the accuracy has improved 4% over the simple Decision Tree model.
 
 
 ### Feature Importance with Random Forest
 
 ![features](https://github.com/jushih/Credit-Risk-Prediction/blob/master/feature_importance.png)
 
-The most predictive features in modeling credit risk is Amount, Duration, Age, and Checking Account Status - None. The features selected by the simple Decision Tree model are among the top ten important features, giving confidence to the model.
+The most predictive features in modeling credit risk is Amount, Duration, Age, and Checking Account Status - None. The features selected by the simple Decision Tree model are among the top ten important features, giving confidence to the baseline model.
 
 ## Advanced Decision Trees: Comparing Boosting-Based Algorithms
 
@@ -74,4 +75,4 @@ After training the models using grid search and cross-validation, the accuracy s
 
 <img src="https://github.com/jushih/Credit-Risk-Prediction/blob/master/model_comparison.png" alt="modelcomp" width="350"/>
 
-There was a jump in accuracy from the Decision Tree model to the ensemble models, which makes sense since ensemble models are designed to perform better through consensus prediction. The CatBoost model outperformed the other models with the highest accuracy of 78.7%. This dataset contained many categorical features suited to using the CatBoost algorithm.
+There was a jump in accuracy from the Decision Tree model to the ensemble models, which makes sense since ensemble models are designed to perform better through consensus prediction. The **CatBoost model** outperformed the other models with the highest accuracy of 78.7%. This dataset contained many categorical features suited to using the CatBoost algorithm.
